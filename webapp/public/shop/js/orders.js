@@ -1,6 +1,7 @@
 import * as api from './api.js';
 import { el, link } from './dom.js';
 import { money, date } from './format.js';
+import { createQrPaymentBox } from './sepay-qr.js';
 
 async function ownRequest(path) {
   try {
@@ -62,19 +63,27 @@ export async function ordersPage(query) {
     const card = el('article', { class: 'order-card-card' });
 
     // Top Bar
-    const topBar = el('div', { class: 'order-top-bar' },
-      el('div', { class: 'order-code-group' },
-        el('span', { class: 'order-code-pill' },
-          el('span', { text: '🧾' }),
-          link(order.MaHD, `#/don-hang/${encodeURIComponent(order.MaHD)}`)
+      let statusPillText = `✓ ${order.TrangThaiDon || 'Đã xác nhận'}`;
+      let statusClass = 'order-status-pill';
+      if ((order.TrangThaiThanhToan || '').includes('Chờ thanh toán')) {
+        statusPillText = '⏳ Chờ quét mã QR';
+        statusClass = 'order-status-pill pending';
+      } else if (order.TrangThaiThanhToan === 'Đã thanh toán (SePay)') {
+        statusPillText = '✓ Đã thanh toán (MBBank)';
+      }
+      const topBar = el('div', { class: 'order-top-bar' },
+        el('div', { class: 'order-code-group' },
+          el('span', { class: 'order-code-pill' },
+            el('span', { text: '🧾' }),
+            link(order.MaHD, `#/don-hang/${encodeURIComponent(order.MaHD)}`)
+          ),
+          el('span', { class: 'order-date-tag' },
+            el('span', { text: '📅' }),
+            el('span', { text: date(order.NgayLap) })
+          )
         ),
-        el('span', { class: 'order-date-tag' },
-          el('span', { text: '📅' }),
-          el('span', { text: date(order.NgayLap) })
-        )
-      ),
-      el('span', { class: 'order-status-pill', text: `✓ ${order.TrangThaiDon || 'Đã xác nhận'}` })
-    );
+        el('span', { class: statusClass, text: statusPillText })
+      );
 
     // Items preview
     const itemsPreview = el('div', { class: 'order-items-preview' });
@@ -211,6 +220,14 @@ export async function orderDetailPage(code) {
     )
   );
   root.append(stepper);
+
+  // If bank transfer, show VietQR payment box
+  if ((order.PhuongThucThanhToan || '').includes('Chuyển khoản')) {
+    root.append(createQrPaymentBox(order, () => {
+      // Reload page state on paid
+      setTimeout(() => { location.reload(); }, 1500);
+    }));
+  }
 
   // Two-column layout: Left (Items + Shipping), Right (Payment Summary)
   const leftCol = el('div', { style: 'display: flex; flex-direction: column; gap: 20px;' });

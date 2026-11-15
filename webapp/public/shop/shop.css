@@ -1137,3 +1137,102 @@ small,.small{font-size:.85rem}
   margin: 0 auto 24px;
 }
 
+/* ===== VIETQR SEPAY PAYMENT CARD ===== */
+.qr-payment-card {
+  background: #fdfdfd;
+  border: 2px dashed var(--primary);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(218, 48, 17, 0.05);
+}
+
+.qr-payment-card h3 {
+  margin: 0 0 6px 0;
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.qr-img-wrapper {
+  max-width: 250px;
+  margin: 16px auto;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.qr-img-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+.qr-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 500px;
+  margin: 16px auto;
+  text-align: left;
+  background: #fff;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+
+.qr-details-grid div span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-bottom: 2px;
+}
+
+.qr-copy-tag {
+  background: #f0f2f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-left: 6px;
+  user-select: none;
+}
+
+.qr-copy-tag:hover {
+  background: #e2e8f0;
+}
+
+.qr-status-waiting {
+  margin-top: 14px;
+  padding: 10px 18px;
+  background: #fff8e6;
+  border: 1px solid #ffd591;
+  border-radius: 8px;
+  color: #d46b08;
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-status-paid {
+  margin-top: 14px;
+  padding: 12px 22px;
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  border-radius: 8px;
+  color: #389e0d;
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+

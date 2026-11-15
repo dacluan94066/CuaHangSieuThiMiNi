@@ -175,7 +175,8 @@ export function createCheckout({ config, database, testHooks }) {
         if (cart.revision !== quote.revision || cart.lockedBy) throw new StoreError(409, 'QUOTE_CHANGED');
         const order = { MaHD: maHD, MaKH: session.maKH, MaNV: 'NV_ONLINE', NgayLap: now, ChiTiet: priced.lines, ...priced.bill,
           ...(quote.input.code ? { MaKM: quote.input.code } : {}), PhuongThucThanhToan: quote.input.method, NguonDon: 'ONLINE', TrangThaiDon: 'Đã xác nhận',
-          DiaChiGiao: quote.input.address, MaChongGuiTrung: key, MaBaoGia: quoteId, ThanhToanGiaLap: true, TrangThaiThanhToan: 'Đã thanh toán giả lập',
+          DiaChiGiao: quote.input.address, MaChongGuiTrung: key, MaBaoGia: quoteId, ThanhToanGiaLap: true,
+          TrangThaiThanhToan: quote.input.method.includes('Chuyển khoản') ? 'Chờ thanh toán (QR Code)' : 'Đã thanh toán giả lập',
           MaGiaoDichGiaLap: randomUUID(), TrangThaiTichDiem: 'ChoXuLy' };
         const item = { MaYeuCau: randomUUID(), Loai: 'DAT_HANG', MaKH: session.maKH, MaHD: maHD, MaChongGuiTrung: key, MaBaoGia: quoteId,
           DauVanTay: quote.fingerprint, TrangThai: 'DANG_XU_LY', Buoc: 'BAT_DAU', NgayTao: now, NgayCapNhat: now, GiuHang: [],

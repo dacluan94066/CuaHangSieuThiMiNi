@@ -35,5 +35,11 @@ export function loadConfig({ testMode = false } = {}) {
   try { parsedAdminOrigin = new URL(adminOrigin); } catch { throw configError('ADMIN_ORIGIN không hợp lệ.'); }
   if (!['http:', 'https:'].includes(parsedAdminOrigin.protocol) || parsedAdminOrigin.origin !== adminOrigin || !['localhost', '127.0.0.1', '[::1]'].includes(parsedAdminOrigin.hostname)) throw configError('ADMIN_ORIGIN phải là origin local chính xác.');
   if (!['true', 'false'].includes(checkoutEnabled) || (checkoutEnabled === 'true' && !['QLSieuThiMini', 'QLSieuThiMini_Test'].includes(DB_NAME))) throw configError('Checkout chỉ có thể bật trên QLSieuThiMini hoặc QLSieuThiMini_Test.');
-  return Object.freeze({ mongoUri: MONGO_URI, dbName: DB_NAME, port: Number(PORT), host: '127.0.0.1', storeOrigin, adminOrigin, storeCookieSecure: origin.protocol === 'https:', storeWriteEnabled: enabled === 'true', storeCheckoutEnabled: checkoutEnabled === 'true' });
+  const sepay = Object.freeze({
+    apiKey: process.env.SEPAY_API_KEY || 'MINIMART_SEPAY_SECRET_2026',
+    bankName: process.env.SEPAY_BANK_NAME || 'MBBank',
+    accountNo: process.env.SEPAY_ACCOUNT_NO || '1114110511',
+    accountName: process.env.SEPAY_ACCOUNT_NAME || 'NGUYEN DAC LUAN'
+  });
+  return Object.freeze({ mongoUri: MONGO_URI, dbName: DB_NAME, port: Number(PORT), host: '127.0.0.1', storeOrigin, adminOrigin, storeCookieSecure: origin.protocol === 'https:', storeWriteEnabled: enabled === 'true', storeCheckoutEnabled: checkoutEnabled === 'true', sepay });
 }

@@ -39,7 +39,7 @@ export const storeExtensions = {
   HoaDon: { $or: [{ NguonDon: { $ne: 'ONLINE' } }, { $jsonSchema: { bsonType: 'object',
     required: ['NguonDon', 'TrangThaiDon', 'DiaChiGiao', 'MaChongGuiTrung', 'MaBaoGia', 'ThanhToanGiaLap', 'TrangThaiThanhToan', 'MaGiaoDichGiaLap', 'DiemDuocCong', 'TrangThaiTichDiem'],
     properties: { NguonDon: { enum: ['ONLINE'] }, TrangThaiDon: { enum: ['Đã xác nhận'] }, DiaChiGiao: address,
-      MaChongGuiTrung: code, MaBaoGia: code, ThanhToanGiaLap: { enum: [true] }, TrangThaiThanhToan: { enum: ['Đã thanh toán giả lập'] },
+      MaChongGuiTrung: code, MaBaoGia: code, ThanhToanGiaLap: { bsonType: 'bool' }, TrangThaiThanhToan: { enum: ['Đã thanh toán giả lập', 'Đã thanh toán', 'Đã thanh toán (SePay)', 'Chờ thanh toán (QR Code)'] },
       MaGiaoDichGiaLap: code, DiemDuocCong: integer, TrangThaiTichDiem: { enum: ['ChoXuLy', 'DaCong'] } }
   } }] }
 };

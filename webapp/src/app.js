@@ -5,6 +5,7 @@ import { errorHandler } from './middleware/error-handler.js';
 import { safeJsonReplacer } from './utils/projections.js';
 import { createStoreRouter } from './store/router.js';
 import { createAdminAuth } from './admin-auth/index.js';
+import { createSepayWebhookHandler } from './store/sepay.js';
 
 export function createApp({ config, db, store, adminAuth = createAdminAuth({ config }) }) {
   const app = express();
@@ -15,10 +16,20 @@ export function createApp({ config, db, store, adminAuth = createAdminAuth({ con
     res.set({
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'no-referrer',
-      'Content-Security-Policy': "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+      'Content-Security-Policy': "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://qr.sepay.vn https://img.vietqr.io; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
     });
     next();
   });
+
+  // SePay Payment Webhook (nhận thông báo tiền vào từ SePay)
+  if (store?.database) {
+    const sepayHandler = createSepayWebhookHandler({
+      database: store.database,
+      apiKey: config.sepay?.apiKey
+    });
+    app.post('/api/sepay-webhook', express.json(), sepayHandler);
+    app.post('/store-api/webhook/sepay', express.json(), sepayHandler);
+  }
   // Trước router: Express tự xử lý HEAD như GET nếu không có chốt này.
   app.use('/api', (req, res, next) => {
     res.set('Cache-Control', 'no-store');

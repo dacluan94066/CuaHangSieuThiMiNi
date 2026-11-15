@@ -1,6 +1,7 @@
 import * as api from './api.js';
 import { el, field, link, busy, errorBox } from './dom.js';
 import { money, date } from './format.js';
+import { createQrPaymentBox } from './sepay-qr.js';
 
 function totals(value) {
   const v = value?.bill || value || {};
@@ -133,6 +134,10 @@ export async function checkoutPage(ctx) {
       const order = result.hoaDon;
       clearAttempt();
       await ctx.refreshHeader();
+
+      const isBankTransfer = (order.PhuongThucThanhToan || '').includes('Chuyển khoản');
+      const qrBox = isBankTransfer ? createQrPaymentBox(order) : null;
+
       root.replaceChildren(
         el('section', { class: 'panel profile' },
           el('p', { class: 'eyebrow', text: '🎉 Đặt hàng thành công' }),
@@ -141,7 +146,8 @@ export async function checkoutPage(ctx) {
           lines(order.ChiTiet),
           totals(order),
           el('p', { text: `Hình thức thanh toán: ${order.PhuongThucThanhToan}` }),
-          el('p', { class: 'muted', text: 'Cảm ơn bạn đã mua hàng tại MiniMart! Đơn hàng của bạn đã được ghi nhận và đang được đóng gói giao sớm.' }),
+          ...(qrBox ? [qrBox] : []),
+          el('p', { class: 'muted', text: isBankTransfer ? 'Vui lòng quét mã VietQR ở trên để chuyển khoản. Hệ thống SePay sẽ tự động duyệt đơn ngay khi nhận được tiền.' : 'Cảm ơn bạn đã mua hàng tại MiniMart! Đơn hàng của bạn đã được ghi nhận và đang được đóng gói giao sớm.' }),
           el('div', { class: 'profile-actions' },
             link('Xem chi tiết đơn hàng', `#/don-hang/${encodeURIComponent(order.MaHD)}`, 'button'),
             link('Tiếp tục mua sắm', '#/tim-kiem', 'button secondary')

@@ -23,7 +23,7 @@ try {
   const checkout = createCheckout({ config, database: storeDatabase });
   const orders = createOrders(storeDatabase);
   adminAuth = createAdminAuth({ config });
-  const server = createApp({ config, db, store: { accounts, catalog, carts, checkout, orders }, adminAuth }).listen(config.port, config.host, () => {
+  const server = createApp({ config, db, store: { accounts, catalog, carts, checkout, orders, database: storeDatabase }, adminAuth }).listen(config.port, config.host, () => {
     console.log(`MiniMart đang chạy tại http://localhost:${config.port} (Database: ${config.dbName})`);
     console.log(`- Quản trị Admin: http://localhost:${config.port}/`);
     console.log(`- Cửa hàng Shop:  http://localhost:${config.port}/shop/`);
