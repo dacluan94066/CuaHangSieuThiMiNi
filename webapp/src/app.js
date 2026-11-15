@@ -27,8 +27,16 @@ export function createApp({ config, db, store, adminAuth = createAdminAuth({ con
       database: store.database,
       apiKey: config.sepay?.apiKey
     });
+    app.get('/api/sepay-webhook', (req, res) => res.json({ status: 'ok', message: 'SePay Webhook server MiniMart sẵn sàng!' }));
     app.post('/api/sepay-webhook', express.json(), sepayHandler);
     app.post('/store-api/webhook/sepay', express.json(), sepayHandler);
+    // Phòng hờ khi điền link gốc không có /api/sepay-webhook
+    app.post('/', express.json(), (req, res, next) => {
+      if (req.headers['authorization'] || req.body?.gateway || req.body?.transferAmount) {
+        return sepayHandler(req, res, next);
+      }
+      next();
+    });
   }
   // Trước router: Express tự xử lý HEAD như GET nếu không có chốt này.
   app.use('/api', (req, res, next) => {

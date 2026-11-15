@@ -25,5 +25,6 @@ coverage/
 # Safety locks & temporary files
 .checkout-locked
 webapp/.checkout-locked
+*.exe
 .DS_Store
 Thumbs.db
