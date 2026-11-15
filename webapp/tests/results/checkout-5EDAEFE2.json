@@ -1,0 +1,459 @@
+{
+  "cases": [
+    {
+      "id": "ST-01",
+      "passed": true,
+      "concurrentRequests": 2,
+      "statuses": [
+        201,
+        409
+      ]
+    },
+    {
+      "id": "ST-02/03",
+      "passed": true
+    },
+    {
+      "id": "ST-04",
+      "passed": true,
+      "fixtureStockAdjustment": {
+        "MaSP": "S3_5EDAEFE2_004",
+        "delta": -1
+      }
+    },
+    {
+      "id": "ST-05",
+      "passed": true
+    },
+    {
+      "id": "ST-06",
+      "passed": true,
+      "inclusiveEnd": true,
+      "plusOneMsRejected": true
+    },
+    {
+      "id": "ST-13/14",
+      "passed": true
+    },
+    {
+      "id": "ST-07/08/17",
+      "passed": true
+    },
+    {
+      "id": "ST-11/12",
+      "passed": true,
+      "crashStages": 9
+    }
+  ],
+  "checks": 194,
+  "crashCases": [
+    {
+      "stage": "after-journal",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "before-hold:0",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "after-hold:0",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "before-hold:1",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "after-hold:1",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "before-insert",
+      "passed": true,
+      "published": false
+    },
+    {
+      "stage": "after-insert",
+      "passed": true,
+      "published": true
+    },
+    {
+      "stage": "after-points",
+      "passed": true,
+      "published": true
+    },
+    {
+      "stage": "after-complete",
+      "passed": true,
+      "published": true
+    }
+  ],
+  "orders": [
+    {
+      "MaHD": "HD_ONL_3f5cc8eb283249058af636e9645c9f4e",
+      "MaKH": "KH_ONL_dd6031267f1d41fa8e2cc72adbc22d08",
+      "ThanhTien": 29000,
+      "points": 2,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_005",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_388f45ad993b4153b5edbfdb6622e3e8",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 9000,
+      "points": 0,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_007",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_5cb370706097406086ce3b74ac50df85",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 10000,
+      "points": 1,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_001",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_094bda88d9844f5f9339e652662e4984",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 19999,
+      "points": 1,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_002",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_74dc89fa98124afca3684e6a493b726c",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 9999,
+      "points": 0,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_009",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_bedbeb1573f24737b4822046b5d0aae5",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 10000,
+      "points": 1,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_010",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_20dc5036676d49069929b020ee16f5c1",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 19999,
+      "points": 1,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_011",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_fac0d247d94c4539be7bc190b68aa408",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 30000,
+      "points": 3,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_024",
+          "quantity": 1
+        },
+        {
+          "MaSP": "S3_5EDAEFE2_025",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_12eb4dd5a17a407f8b3051a679023471",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 30000,
+      "points": 3,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_026",
+          "quantity": 1
+        },
+        {
+          "MaSP": "S3_5EDAEFE2_027",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "MaHD": "HD_ONL_7d8f27370af9430caee2ba794ab4e45a",
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "ThanhTien": 30000,
+      "points": 3,
+      "lines": [
+        {
+          "MaSP": "S3_5EDAEFE2_028",
+          "quantity": 1
+        },
+        {
+          "MaSP": "S3_5EDAEFE2_029",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "MaSP": "S3_5EDAEFE2_001",
+      "initial": 1,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 0
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_002",
+      "initial": 10,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 9
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_003",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_004",
+      "initial": 1,
+      "testAdjustment": -1,
+      "sold": 0,
+      "final": 0
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_005",
+      "initial": 20,
+      "testAdjustment": 0,
+      "sold": 3,
+      "final": 17
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_006",
+      "initial": 10,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 10
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_007",
+      "initial": 2,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 1
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_008",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_009",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_010",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_011",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_012",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_013",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_014",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_015",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_016",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_017",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_018",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_019",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_020",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_021",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_022",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_023",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 0,
+      "final": 5
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_024",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_025",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_026",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_027",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_028",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    },
+    {
+      "MaSP": "S3_5EDAEFE2_029",
+      "initial": 5,
+      "testAdjustment": 0,
+      "sold": 1,
+      "final": 4
+    }
+  ],
+  "customers": [
+    {
+      "MaKH": "KH_ONL_fd0bf0752fee471bb3d82d02edc74893",
+      "initialPoints": 0,
+      "earned": 13,
+      "finalPoints": 13
+    },
+    {
+      "MaKH": "KH_ONL_1b644fab4b2541d593fa1726130d8f14",
+      "initialPoints": 0,
+      "earned": 0,
+      "finalPoints": 0
+    },
+    {
+      "MaKH": "KH_ONL_dd6031267f1d41fa8e2cc72adbc22d08",
+      "initialPoints": 100,
+      "earned": 2,
+      "finalPoints": 102
+    }
+  ],
+  "run": "5EDAEFE2",
+  "passed": true,
+  "orderCount": 10,
+  "netRevenue": 197997
+}

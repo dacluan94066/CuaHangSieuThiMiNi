@@ -1,0 +1,21 @@
+{
+  "QLSieuThiMini": {
+    "dataServiceVerified": true,
+    "authenticatedApiEnabled": false,
+    "counts": {
+      "DanhMuc": 6,
+      "NhaCungCap": 6,
+      "SanPham": 20,
+      "KhachHang": 10,
+      "NhanVien": 6,
+      "TaiKhoan": 6,
+      "KhuyenMai": 5,
+      "HoaDon": 20,
+      "PhieuNhap": 10
+    },
+    "totalRevenue": 4400000,
+    "invoiceCount": 20,
+    "httpRequests": 5,
+    "note": "Main /api anonymous is 401; no migration or authenticated data API on Main."
+  }
+}

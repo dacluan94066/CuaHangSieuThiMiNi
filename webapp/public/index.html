@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dashboard chỉ đọc cho cơ sở dữ liệu MongoDB quản lý siêu thị mini.">
+  <title>Tổng quan · MiniMart</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/css/app.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body class="admin-anonymous">
+  <a class="skip-link" href="#main-content">Đến nội dung chính</a>
+  <div class="sidebar-shade" id="sidebar-shade" hidden></div>
+  <aside class="sidebar" id="sidebar" aria-label="Menu chính">
+    <a class="brand" href="#/dashboard" aria-label="MiniMart — Tổng quan">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 8h14l1 12H4L5 8Z M8 8V6a4 4 0 0 1 8 0v2 M9 12h.01 M15 12h.01"/></svg></span>
+      <span><strong>MiniMart<span class="brand-dot">.</span></strong><small>QUẢN LÝ SIÊU THỊ MINI</small></span>
+    </a>
+    <div class="nav-caption">KHÔNG GIAN LÀM VIỆC</div>
+    <nav class="nav-menu" aria-label="Điều hướng">
+      <a class="nav-item active" href="#/dashboard" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z"/></svg>Tổng quan</a>
+      <a class="nav-item" href="#/san-pham"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z M3 8v9l9 5 9-5V8 M12 13v9"/></svg>Sản phẩm</a>
+      <a class="nav-item" href="#/hoa-don"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z M9 7h6 M9 11h6 M9 15h3"/></svg>Hóa đơn</a>
+      <a class="nav-item" href="#/phieu-nhap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z M8 4v5h8V4 M12 12v5 M9 14l3 3 3-3"/></svg>Phiếu nhập</a>
+      <a class="nav-item" href="#/khach-hang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M13 3a4 4 0 0 1 0 8 M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>Khách hàng</a>
+      <a class="nav-item" href="#/nhan-vien"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2 M10 17l2 2 2-2"/></svg>Nhân viên</a>
+      <a class="nav-item" href="#/khuyen-mai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 3 9 .5L21 13l-8 8-9.5-9L3 3Z M7 7h.01 M10 15l5-5"/></svg>Khuyến mãi</a>
+      <a class="nav-item" href="#/bao-cao"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3v18h17 M8 16v-4 M13 16V8 M18 16V5"/></svg>Báo cáo</a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" href="#/canh-bao-kho"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 10 18H2L12 3Z M12 9v5 M12 17h.01"/></svg>Cảnh báo kho</a>
+      <a class="nav-item" href="#/kiem-tra-du-lieu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7v6c0 5 9 9 9 9s9-4 9-9V7l-9-4Z M8 12l3 3 5-6"/></svg>Kiểm tra dữ liệu</a>
+    </nav>
+    <div class="sidebar-bottom"><span class="status-dot" aria-hidden="true"></span><div><strong>QLSieuThiMini</strong><small>MongoDB · Dữ liệu local</small></div><span class="version">v0.1</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="topbar-left"><button class="icon-button menu-toggle" id="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Mở menu điều hướng"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16 M4 12h16 M4 18h16"/></svg></button><span class="breadcrumb">Hệ thống <span aria-hidden="true">/</span> <strong>Tổng quan</strong></span></div>
+      <div class="topbar-right"><div id="admin-identity" class="admin-identity" hidden><span><strong id="admin-name"></strong><small id="admin-role"></small></span><button type="button" class="button" id="admin-logout">Đăng xuất</button></div><span class="readonly-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11h14v10H5z M8 11V7a4 4 0 0 1 8 0v4"/></svg>Chỉ đọc</span><span class="connection" id="connection-status">Đang kết nối</span></div>
+    </header>
+    <main id="main-content" tabindex="-1"></main>
+    <footer class="footer"><span>MiniMart · Ứng dụng minh họa MongoDB</span><span>Dữ liệu chỉ đọc · Múi giờ Việt Nam</span></footer>
+  </div>
+</body>
+</html>

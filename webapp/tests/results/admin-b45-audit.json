@@ -1,0 +1,118 @@
+{
+  "before": {
+    "QLSieuThiMini": {
+      "fingerprint": "bd88b53eb58beff44dd294e2c6bc3d1f7ceb5ee6c6d4b28ed15b564fbe928916",
+      "counts": {
+        "DanhMuc": 6,
+        "HoaDon": 20,
+        "KhachHang": 10,
+        "KhuyenMai": 5,
+        "NhaCungCap": 6,
+        "NhanVien": 6,
+        "PhieuNhap": 10,
+        "SanPham": 20,
+        "TaiKhoan": 6
+      }
+    },
+    "QLSieuThiMini_Test": {
+      "fingerprint": "486373f85a22666795bba3180b513ec58d6b2c6cfbe42c5c86b2ebd06123c74e",
+      "counts": {
+        "DanhMuc": 6,
+        "HoaDon": 36,
+        "KhachHang": 21,
+        "KhuyenMai": 13,
+        "NhaCungCap": 6,
+        "NhanVien": 7,
+        "PhieuNhap": 10,
+        "SanPham": 52,
+        "TaiKhoan": 6,
+        "TaiKhoanKhachHang": 11,
+        "YeuCauCuaHang": 34
+      }
+    }
+  },
+  "after": {
+    "QLSieuThiMini": {
+      "fingerprint": "bd88b53eb58beff44dd294e2c6bc3d1f7ceb5ee6c6d4b28ed15b564fbe928916",
+      "counts": {
+        "DanhMuc": 6,
+        "HoaDon": 20,
+        "KhachHang": 10,
+        "KhuyenMai": 5,
+        "NhaCungCap": 6,
+        "NhanVien": 6,
+        "PhieuNhap": 10,
+        "SanPham": 20,
+        "TaiKhoan": 6
+      }
+    },
+    "QLSieuThiMini_Test": {
+      "fingerprint": "486373f85a22666795bba3180b513ec58d6b2c6cfbe42c5c86b2ebd06123c74e",
+      "counts": {
+        "DanhMuc": 6,
+        "HoaDon": 36,
+        "KhachHang": 21,
+        "KhuyenMai": 13,
+        "NhaCungCap": 6,
+        "NhanVien": 7,
+        "PhieuNhap": 10,
+        "SanPham": 52,
+        "TaiKhoan": 6,
+        "TaiKhoanKhachHang": 11,
+        "YeuCauCuaHang": 34
+      }
+    }
+  },
+  "bothDatabasesUnchanged": true,
+  "protectedFilesUnchanged": true,
+  "sha256": [
+    {
+      "File": "01_create_database.js",
+      "Hash": "01FAF2485886D4EC9D0C4EF44D616B0256D1DB07E6142C7730D059A33549B730"
+    },
+    {
+      "File": "02_insert_master_data.js",
+      "Hash": "83B69C1EB351FCB0A704E7D9DD1E93EC63AF24705DBD1DC5E0ACB7765186045E"
+    },
+    {
+      "File": "03_insert_transactions.js",
+      "Hash": "6EC914626B310B5662377F88F12170298038CC2B2C4DF2C0B154322593825663"
+    },
+    {
+      "File": "04_basic_queries.js",
+      "Hash": "A242945B130961B30C5FB73855DD417CC4DC8D615E7725301743A3BB97872449"
+    },
+    {
+      "File": "05_advanced_queries.js",
+      "Hash": "A786B86F3104F0068BFAA394BC0642A66570A1F32CB8A19DCDC2331C954DD570"
+    },
+    {
+      "File": "06_update_delete_queries.js",
+      "Hash": "11B71AD7BF521A3DEE54BF369E0F7C9015C809E9B7572963162A39B703AB5838"
+    },
+    {
+      "File": "07_indexes.js",
+      "Hash": "5A3FF221B6A9A61DAAE089400276552D0928B01BF04094FEDDE5AB57ECACCDA4"
+    },
+    {
+      "File": "08_import_export.md",
+      "Hash": "8AE3C037BD887D222E92AA086AE4F01AFA6F4C7C5D006A37AE814DB313E8B2E2"
+    },
+    {
+      "File": "09_backup_restore.md",
+      "Hash": "4206C53F5AF686B1162AC4D07A9A24D7DBB58BA42B5EC72DF2B77939BF885938"
+    },
+    {
+      "File": "README.md",
+      "Hash": "F9DAB63CCED817FDBBD4041A267ADBC6E6E2E0030A4C014CADFA8634857E3C52"
+    },
+    {
+      "File": "SRS.md",
+      "Hash": "0A18A8E680D217D8C8448DCE3FE84CE594382D6A3B8DE9A17D2CEF8AF1B32B89"
+    },
+    {
+      "File": "webapp/SRS_STORE.md",
+      "Hash": "177B34EB15630B0EA53DE38CD2FCA964BCC4505F7FA05E54778DF007CB7995C6"
+    }
+  ]
+}

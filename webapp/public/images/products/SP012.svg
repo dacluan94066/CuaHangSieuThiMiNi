@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#e1f5fe"/>
+      <stop offset="100%" stop-color="#f5f5f5"/>
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity="0.18" flood-color="#000"/>
+    </filter>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b0b0b0"/>
+      <stop offset="25%" stop-color="#f0f0f0"/>
+      <stop offset="50%" stop-color="#ffffff"/>
+      <stop offset="75%" stop-color="#d0d0d0"/>
+      <stop offset="100%" stop-color="#999999"/>
+    </linearGradient>
+  </defs>
+  <rect width="280" height="280" rx="12" fill="url(#bg)"/>
+  <ellipse cx="140" cy="242" rx="65" ry="10" fill="#000" opacity="0.12"/>
+  
+    <g filter="url(#shadow)">
+      <!-- Pure clean carton -->
+      <polygon points="105,75 140,55 175,75 175,225 105,225" fill="#ffffff" stroke="#b3e5fc" stroke-width="1.5"/>
+      <!-- Sky blue roof -->
+      <polygon points="105,75 140,55 175,75" fill="#0288d1"/>
+      <!-- TH logo style -->
+      <text x="140" y="105" font-family="'Arial Black', sans-serif" font-size="18" font-weight="900" fill="#01579b" text-anchor="middle">TH</text>
+      <text x="140" y="122" font-family="'Georgia', serif" font-size="11" font-weight="bold" fill="#0288d1" text-anchor="middle" font-style="italic">true MILK</text>
+      <line x1="120" y1="130" x2="160" y2="130" stroke="#0288d1" stroke-width="1.5"/>
+      <text x="140" y="150" font-family="sans-serif" font-size="8" font-weight="bold" fill="#546e7a" text-anchor="middle">SỮA TƯƠI TIỆT TRÙNG</text>
+      <rect x="115" y="165" width="50" height="20" rx="4" fill="#e1f5fe"/>
+      <text x="140" y="179" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0288d1" text-anchor="middle">Ít đường</text>
+      <text x="140" y="210" font-family="sans-serif" font-size="8" font-weight="bold" fill="#78909c" text-anchor="middle">180 ml</text>
+    </g>
+  
+</svg>

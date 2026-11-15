@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "realKillVerified": true,
+  "run": "14f0ac6f-d8fc-45c9-bb8e-9fa252c8229d",
+  "stage": "after-points",
+  "exit": {
+    "code": 4294967295,
+    "signal": null
+  },
+  "restartedPid": 30560,
+  "database": "QLSieuThiMini_Test",
+  "product": "S4_689443b677904ca7af667d881391c0b0",
+  "maKH": "KH_ONL_22ad4387c4f9495faa4a4da2a89bb6a8",
+  "maHD": "HD_ONL_69430e3f5d314c12b2f7821fad4f8e50",
+  "stockBefore": 5,
+  "stockAfter": 4,
+  "pointsBefore": 0,
+  "pointsAfter": 1,
+  "onlineOrders": 1,
+  "replaySameOrder": true,
+  "pending": 0
+}

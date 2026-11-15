@@ -1,0 +1,12 @@
+const numberFormatter = new Intl.NumberFormat('vi-VN');
+const moneyFormatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 });
+const dateFormatter = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Asia/Ho_Chi_Minh' });
+const utcDateFormatter = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
+const timeFormatter = new Intl.DateTimeFormat('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Ho_Chi_Minh' });
+export const number = value => value == null ? '—' : numberFormatter.format(value);
+export const money = value => value == null ? '—' : moneyFormatter.format(value);
+export const date = value => value == null ? '—' : dateFormatter.format(new Date(value));
+export const promotionEndDate = value => value == null ? '—' : utcDateFormatter.format(new Date(value));
+export const dateTime = value => value == null ? '—' : `${date(value)} ${timeFormatter.format(new Date(value))}`;
+export const month = value => value ? `${value.slice(5, 7)}/${value.slice(0, 4)}` : '—';
+export const period = range => range.from || range.to ? `${range.from ? date(`${range.from}T12:00:00+07:00`) : 'Đầu kỳ'} – ${range.to ? date(`${range.to}T12:00:00+07:00`) : 'Hiện tại'}` : 'Toàn bộ thời gian';

@@ -1,0 +1,8 @@
+{
+  "pid": 21532,
+  "run": "14f0ac6f-d8fc-45c9-bb8e-9fa252c8229d",
+  "workerPath": "D:\\DaiHocNam4\\DoAnNoSQL\\QLSieuThiMini_Studio3T\\webapp\\tests\\helpers\\store-process-crash-worker.js",
+  "stage": "after-points",
+  "database": "QLSieuThiMini_Test",
+  "continueFile": "D:\\DaiHocNam4\\DoAnNoSQL\\QLSieuThiMini_Studio3T\\webapp\\tests\\results\\process-14f0ac6f-d8fc-45c9-bb8e-9fa252c8229d.continue"
+}

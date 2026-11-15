@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+webapp/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.test.example
+webapp/.env
+webapp/.env.*
+!webapp/.env.example
+!webapp/.env.test.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# Safety locks & temporary files
+.checkout-locked
+webapp/.checkout-locked
+.DS_Store
+Thumbs.db

@@ -1,0 +1,70 @@
+{
+  "QLSieuThiMini": {
+    "httpRequests": 141,
+    "counts": {
+      "DanhMuc": 6,
+      "NhaCungCap": 6,
+      "SanPham": 20,
+      "KhachHang": 10,
+      "NhanVien": 6,
+      "TaiKhoan": 6,
+      "KhuyenMai": 5,
+      "HoaDon": 20,
+      "PhieuNhap": 10
+    },
+    "totalRevenue": 4400000,
+    "invoiceCount": 20,
+    "employees": 6,
+    "promotions": 5,
+    "onlineOrders": 0,
+    "onlineRevenue": 0,
+    "integrity": {
+      "tong-tien": 0,
+      "khuyen-mai": 1,
+      "tham-chieu": 0
+    },
+    "invalidPromotionInvoices": [
+      "HD009"
+    ],
+    "systemEmployee": null,
+    "memoryFixtures": "KM boundary/end+1ms, VN midnight, wrong total, all 11 references valid/missing/optional"
+  },
+  "QLSieuThiMini_Test": {
+    "httpRequests": 200,
+    "counts": {
+      "DanhMuc": 6,
+      "NhaCungCap": 6,
+      "SanPham": 52,
+      "KhachHang": 21,
+      "NhanVien": 7,
+      "TaiKhoan": 6,
+      "KhuyenMai": 13,
+      "HoaDon": 36,
+      "PhieuNhap": 10
+    },
+    "totalRevenue": 4652997,
+    "invoiceCount": 36,
+    "employees": 7,
+    "promotions": 13,
+    "onlineOrders": 15,
+    "onlineRevenue": 247997,
+    "integrity": {
+      "tong-tien": 0,
+      "khuyen-mai": 1,
+      "tham-chieu": 0
+    },
+    "invalidPromotionInvoices": [
+      "HD009"
+    ],
+    "systemEmployee": {
+      "MaNV": "NV_ONLINE",
+      "ChucVu": "Nhân viên hệ thống",
+      "HoTen": "Bán hàng online",
+      "TrangThai": "Đang làm",
+      "DoanhThu": 252997,
+      "SoHoaDon": 16,
+      "LaNhanVienHeThong": true
+    },
+    "memoryFixtures": "KM boundary/end+1ms, VN midnight, wrong total, all 11 references valid/missing/optional"
+  }
+}
