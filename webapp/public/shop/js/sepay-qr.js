@@ -57,9 +57,24 @@ export function createQrPaymentBox(order, onPaidCallback) {
         const res = await api.get(`/don-hang/${encodeURIComponent(order.MaHD)}`);
         if (res?.data && (res.data.TrangThaiThanhToan || '').includes('Đã thanh toán')) {
           clearInterval(pollInterval);
-          statusBox.className = 'qr-status-paid';
-          statusBox.innerHTML = '🎉 Đã nhận được thanh toán thành công qua MBBank! Cảm ơn bạn.';
+
+          // Replace entire QR card with a big celebration card
+          box.replaceChildren(
+            el('div', { style: 'padding: 20px 10px; text-align: center;' },
+              el('div', { style: 'font-size: 3.5rem; margin-bottom: 10px;', text: '✅' }),
+              el('h3', { style: 'color: #107e3e; font-size: 1.4rem; margin: 0 0 8px;', text: 'THANH TOÁN THÀNH CÔNG!' }),
+              el('p', { style: 'font-size: 1rem; color: #333; margin: 0 0 6px;', text: `Hệ thống đã nhận đủ ${money(order.ThanhTien)} qua MBBank.` }),
+              el('p', { class: 'code', style: 'display: inline-block; padding: 4px 10px; background: #eef2f5; border-radius: 6px;', text: `Mã giao dịch: ${res.data.MaGiaoDichNganHang || 'MBBank'}` }),
+              el('p', { style: 'color: #107e3e; font-weight: 600; margin-top: 14px;', text: '🎉 Đơn hàng của bạn đã được xác nhận tự động. Đang chuyển hướng trong giây lát…' })
+            )
+          );
+
           if (onPaidCallback) onPaidCallback(res.data);
+
+          // Auto navigate to order details after 2.5s
+          setTimeout(() => {
+            location.hash = `#/don-hang/${encodeURIComponent(order.MaHD)}`;
+          }, 2500);
         }
       } catch { /* ignore polling errors */ }
     }, 3000);
