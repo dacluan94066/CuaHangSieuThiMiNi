@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const COLLECTIONS = new Set(['DanhMuc', 'NhaCungCap', 'SanPham', 'KhachHang', 'NhanVien', 'TaiKhoan', 'KhuyenMai', 'HoaDon', 'PhieuNhap']);
+const COLLECTIONS = new Set(['DanhMuc', 'NhaCungCap', 'SanPham', 'KhachHang', 'NhanVien', 'TaiKhoan', 'KhuyenMai', 'HoaDon', 'PhieuNhap', 'TaiKhoanQuanTri', 'TaiKhoanKhachHang']);
 const WRITE_STAGES = new Set(['$out', '$merge']);
 
 function checkPipeline(value) {

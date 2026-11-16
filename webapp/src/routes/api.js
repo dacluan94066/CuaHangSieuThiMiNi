@@ -6,6 +6,7 @@ import { listProducts, productDetail, createProduct, updateProduct, deleteProduc
 import { listInventory } from '../services/inventory.service.js';
 import { listInvoices, invoiceDetail, updateOrderStatus } from '../services/invoices.service.js';
 import { createPromotion, updatePromotion, deletePromotion } from '../services/promotions.service.js';
+import { listEmployeesWithAccounts, createEmployee, updateEmployee, deleteEmployee, listCustomerAccounts } from '../services/employees.service.js';
 import { listPurchases, purchaseDetail } from '../services/purchases.service.js';
 import { listCustomers, customerDetail } from '../services/customers.service.js';
 import { listEmployees, listPromotions, salesOverview, revenueReport, productReport, customerReport } from '../services/analytics.service.js';
@@ -17,7 +18,6 @@ export function createApi(db, adminAuth) {
   // Every registration goes through this default-deny policy wrapper.
   const get = (path, ...handlers) => router.get(path, adminAuth.authorize(ROUTE_POLICIES[path]), ...handlers);
   for (const [path, schema, handler] of [
-    ['/nhan-vien', { ...schemas.search, ...schemas.dates, ...schemas.pagination }, listEmployees],
     ['/khuyen-mai', { ...schemas.search, ...schemas.promotions, ...schemas.pagination }, listPromotions],
     ['/bao-cao/tong-quan', schemas.dates, salesOverview],
     ['/bao-cao/doanh-thu', { ...schemas.dates, ...schemas.revenueReport, ...schemas.pagination }, revenueReport],
@@ -25,6 +25,24 @@ export function createApi(db, adminAuth) {
     ['/bao-cao/khach-hang', { ...schemas.dates, ...schemas.customerReport, ...schemas.pagination }, customerReport],
     ['/kiem-tra-du-lieu', { ...schemas.integrity, ...schemas.pagination }, checkIntegrity]
   ]) get(path, validate(schema), async (req, res) => res.json(await handler(db, res.locals.query)));
+
+  get('/nhan-vien', validate({ ...schemas.search, ...schemas.pagination }), async (req, res) => {
+    const result = await listEmployeesWithAccounts(db, res.locals.query);
+    res.json({
+      data: result.data,
+      pagination: { page: 1, limit: Math.max(1, result.total), total: result.total, totalPages: 1 },
+      meta: { updatedAt: new Date().toISOString() }
+    });
+  });
+
+  get('/tai-khoan-khach-hang', validate(), async (req, res) => {
+    const result = await listCustomerAccounts(db, res.locals.query);
+    res.json({
+      data: result.data,
+      pagination: { page: 1, limit: Math.max(1, result.total), total: result.total, totalPages: 1 },
+      meta: { updatedAt: new Date().toISOString() }
+    });
+  });
   get('/health', validate(), async (req, res) => {
     await (await db.collection('DanhMuc')).countDocuments({}, { limit: 1 });
     res.json({ data: { status: 'ok', database: 'connected', readOnly: true } });
@@ -149,6 +167,45 @@ export function createApi(db, adminAuth) {
       res.json({ data: result, message: result.message });
     } catch (err) {
       res.status(400).json({ error: { code: 'DELETE_PROMOTION_ERROR', message: err.message } });
+    }
+  });
+
+  // Employee CRUD (Quản trị only)
+  router.post('/nhan-vien', adminAuth.authorize('nhan-vien'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền thêm nhân viên & cấp tài khoản.' } });
+      }
+      const created = await createEmployee(db, req.body);
+      res.status(201).json({ data: created, message: 'Thêm nhân viên và cấp tài khoản thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'CREATE_EMPLOYEE_ERROR', message: err.message } });
+    }
+  });
+
+  router.put('/nhan-vien/:maNV', adminAuth.authorize('nhan-vien'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền chỉnh sửa nhân viên & tài khoản.' } });
+      }
+      const maNV = codeValue(req.params.maNV, 'maNV');
+      const updated = await updateEmployee(db, maNV, req.body);
+      res.json({ data: updated, message: 'Cập nhật nhân viên và tài khoản thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'UPDATE_EMPLOYEE_ERROR', message: err.message } });
+    }
+  });
+
+  router.delete('/nhan-vien/:maNV', adminAuth.authorize('nhan-vien'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền xóa / khóa nhân viên.' } });
+      }
+      const maNV = codeValue(req.params.maNV, 'maNV');
+      const result = await deleteEmployee(db, maNV);
+      res.json({ data: result, message: result.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'DELETE_EMPLOYEE_ERROR', message: err.message } });
     }
   });
 

@@ -9,7 +9,7 @@ export const ROUTE_POLICIES = Object.freeze({
   '/health': 'health', '/danh-muc': 'san-pham', '/nha-cung-cap': 'supply', '/phuong-thuc-thanh-toan': 'hoa-don', '/dashboard': 'dashboard',
   '/san-pham': 'san-pham', '/san-pham/:maSP': 'san-pham', '/hoa-don': 'hoa-don', '/hoa-don/:maHD': 'hoa-don',
   '/phieu-nhap': 'phieu-nhap', '/phieu-nhap/:maPN': 'phieu-nhap', '/khach-hang': 'khach-hang', '/khach-hang/:maKH': 'khach-hang',
-  '/nhan-vien': 'nhan-vien', '/khuyen-mai': 'khuyen-mai', '/canh-bao-kho': 'canh-bao-kho',
+  '/nhan-vien': 'nhan-vien', '/khuyen-mai': 'khuyen-mai', '/canh-bao-kho': 'canh-bao-kho', '/tai-khoan-khach-hang': 'khach-hang',
   '/bao-cao/tong-quan': 'bao-cao', '/bao-cao/doanh-thu': 'bao-cao', '/bao-cao/san-pham': 'bao-cao', '/bao-cao/khach-hang': 'bao-cao', '/kiem-tra-du-lieu': 'kiem-tra-du-lieu'
 });
 export const canViewSupply = role => ['Quản trị', 'Kho'].includes(role);

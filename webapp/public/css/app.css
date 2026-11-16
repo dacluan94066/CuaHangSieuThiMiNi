@@ -25,6 +25,10 @@
 .nav-store-link:hover { background: #fdeee9 !important; border-color: #da3011 !important; }
 
 /* Badges for Online orders & payment */
+.badge-role-quantri { background: #fef2f2 !important; color: #dc2626 !important; border-color: #fecaca !important; font-weight: 700 !important; }
+.badge-role-thungan { background: #eff6ff !important; color: #2563eb !important; border-color: #bfdbfe !important; font-weight: 650 !important; }
+.badge-role-kho { background: #fffbeb !important; color: #d97706 !important; border-color: #fde68a !important; font-weight: 650 !important; }
+.badge-role-banhang { background: #f0fdf4 !important; color: #16a34a !important; border-color: #bbf7d0 !important; font-weight: 650 !important; }
 .badge-online { background: #f3e8ff !important; color: #7e22ce !important; border-color: #e9d5ff !important; font-weight: 700 !important; }
 .badge-pos { background: #f1f5f9 !important; color: #475569 !important; border-color: #cbd5e1 !important; }
 .badge-sepay { background: #ecfdf5 !important; color: #047857 !important; border-color: #a7f3d0 !important; font-weight: 650 !important; }
