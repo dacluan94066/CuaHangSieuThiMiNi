@@ -8,7 +8,7 @@ import { listInvoices, invoiceDetail, updateOrderStatus } from '../services/invo
 import { createPromotion, updatePromotion, deletePromotion } from '../services/promotions.service.js';
 import { listEmployeesWithAccounts, createEmployee, updateEmployee, deleteEmployee, listCustomerAccounts } from '../services/employees.service.js';
 import { listPurchases, purchaseDetail } from '../services/purchases.service.js';
-import { listCustomers, customerDetail } from '../services/customers.service.js';
+import { listCustomers, customerDetail, createCustomer, updateCustomer, deleteCustomer } from '../services/customers.service.js';
 import { listEmployees, listPromotions, salesOverview, revenueReport, productReport, customerReport } from '../services/analytics.service.js';
 import { checkIntegrity } from '../services/integrity.service.js';
 import { ROUTE_POLICIES } from '../admin-auth/policy.js';
@@ -206,6 +206,46 @@ export function createApi(db, adminAuth) {
       res.json({ data: result, message: result.message });
     } catch (err) {
       res.status(400).json({ error: { code: 'DELETE_EMPLOYEE_ERROR', message: err.message } });
+    }
+  });
+
+  // Customer CRUD
+  router.post('/khach-hang', adminAuth.authorize('khach-hang'), async (req, res) => {
+    try {
+      if (!['Quản trị', 'Thu ngân', 'Bán hàng'].includes(res.locals.admin?.role)) {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Bạn không có quyền thêm khách hàng mới.' } });
+      }
+      const created = await createCustomer(db, req.body);
+      res.status(201).json({ data: created.data, message: created.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'CREATE_CUSTOMER_ERROR', message: err.message } });
+    }
+  });
+
+  router.put('/khach-hang/:maKH', adminAuth.authorize('khach-hang'), async (req, res) => {
+    try {
+      if (!['Quản trị', 'Thu ngân', 'Bán hàng'].includes(res.locals.admin?.role)) {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Bạn không có quyền cập nhật khách hàng.' } });
+      }
+      const maKH = codeValue(req.params.maKH, 'maKH');
+      const isAdmin = res.locals.admin?.role === 'Quản trị';
+      const updated = await updateCustomer(db, maKH, req.body, isAdmin);
+      res.json({ data: updated.data, message: updated.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'UPDATE_CUSTOMER_ERROR', message: err.message } });
+    }
+  });
+
+  router.delete('/khach-hang/:maKH', adminAuth.authorize('khach-hang'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền xóa khách hàng.' } });
+      }
+      const maKH = codeValue(req.params.maKH, 'maKH');
+      const result = await deleteCustomer(db, maKH);
+      res.json({ data: result, message: result.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'DELETE_CUSTOMER_ERROR', message: err.message } });
     }
   });
 
