@@ -18,13 +18,19 @@ let controller;
 let cleanup;
 let loginNotice = '';
 const identity = document.getElementById('admin-identity');
-const firstPage = () => authState()?.user?.role === 'Quản trị' ? '/dashboard' : '/san-pham';
+const firstPage = () => {
+  const role = authState()?.user?.role;
+  if (role === 'Quản trị') return '/dashboard';
+  if (role === 'Thu ngân') return '/hoa-don';
+  if (role === 'Kho') return '/canh-bao-kho';
+  return '/san-pham';
+};
 function updateIdentity() {
   const state = authState(); document.body.classList.toggle('admin-anonymous', !state?.authenticated);
   identity.hidden = !state?.authenticated;
   document.getElementById('admin-name').textContent = state?.user?.hoTen || '';
   document.getElementById('admin-role').textContent = state?.user?.role || '';
-  for (const item of sidebar.querySelectorAll('a.nav-item')) item.hidden = !canPage(item.hash.slice(2));
+  for (const item of sidebar.querySelectorAll('a.nav-item:not(.nav-store-link)')) item.hidden = !canPage(item.hash.slice(2));
   sidebar.querySelector('.brand').href = '#' + firstPage();
 }
 function stopPage() { controller?.abort(); cleanup?.(); cleanup = undefined; setMenu(false); }
