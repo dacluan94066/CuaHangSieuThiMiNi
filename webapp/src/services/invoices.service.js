@@ -10,6 +10,9 @@ export function invoiceFilter(query) {
   if (query.maNV) filter.MaNV = query.maNV;
   if (query.thanhToan) filter.PhuongThucThanhToan = query.thanhToan;
   if (query.thucThuTren !== undefined) filter.ThanhTien = { $gt: query.thucThuTren };
+  if (query.nguonDon === 'ONLINE') filter.NguonDon = 'ONLINE';
+  else if (query.nguonDon === 'POS') filter.NguonDon = { $ne: 'ONLINE' };
+  if (query.trangThaiDon) filter.TrangThaiDon = query.trangThaiDon;
   return filter;
 }
 
@@ -36,4 +39,49 @@ export async function invoiceDetail(db, code) {
   const now = new Date();
   const [document] = await (await db.collection('HoaDon')).aggregate([{ $match: { MaHD: code } }, { $limit: 1 }, ...invoiceJoins(true)]).toArray();
   return document ? { data: decorateInvoice(document, now), meta: { updatedAt: now.toISOString(), timezone: TIMEZONE } } : null;
+}
+
+export async function updateOrderStatus(db, maHD, trangThaiDon) {
+  const allowed = ['Đã xác nhận', 'Đang giao hàng', 'Hoàn tất', 'Đã hủy'];
+  if (!allowed.includes(trangThaiDon)) {
+    throw new Error(`Trạng thái không hợp lệ: ${trangThaiDon}`);
+  }
+  const hoadonColl = await db.collection('HoaDon');
+  const order = await hoadonColl.findOne({ MaHD: maHD });
+  if (!order) {
+    return { ok: false, message: 'Không tìm thấy hóa đơn.' };
+  }
+
+  const updateFields = { TrangThaiDon: trangThaiDon };
+
+  // Nếu hoàn tất đơn: Tự động cộng điểm tích lũy cho khách nếu chưa cộng
+  if (trangThaiDon === 'Hoàn tất') {
+    if (order.TrangThaiTichDiem !== 'DaCong' && order.DiemDuocCong > 0 && order.MaKH) {
+      const khachHangColl = await db.collection('KhachHang');
+      await khachHangColl.updateOne(
+        { MaKH: order.MaKH },
+        { $inc: { DiemTichLuy: order.DiemDuocCong } }
+      );
+      updateFields.TrangThaiTichDiem = 'DaCong';
+    }
+  }
+
+  // Nếu hủy đơn: Hoàn trả số lượng tồn kho
+  if (trangThaiDon === 'Đã hủy' && order.TrangThaiDon !== 'Đã hủy') {
+    if (Array.isArray(order.ChiTiet)) {
+      const sanPhamColl = await db.collection('SanPham');
+      for (const item of order.ChiTiet) {
+        if (item.MaSP && item.SoLuong > 0) {
+          await sanPhamColl.updateOne(
+            { MaSP: item.MaSP },
+            { $inc: { SoLuongTon: item.SoLuong } }
+          );
+        }
+      }
+    }
+  }
+
+  await hoadonColl.updateOne({ MaHD: maHD }, { $set: updateFields });
+  const updated = await invoiceDetail(db, maHD);
+  return { ok: true, data: updated?.data };
 }

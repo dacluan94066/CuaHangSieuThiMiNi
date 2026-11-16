@@ -7,12 +7,13 @@ export const projections = Object.freeze({
   KhuyenMaiLienKet: { _id: 0, MaKM: 1, TenKM: 1, LoaiKhuyenMai: 1, GiaTri: 1, NgayBatDau: 1, NgayKetThuc: 1, DieuKien: 1, TrangThai: 1 },
   HoaDon: {
     _id: 0, MaHD: 1, MaKH: 1, MaNV: 1, MaKM: 1, NgayLap: 1, TongTien: 1, GiamGia: 1, ThanhTien: 1, PhuongThucThanhToan: 1,
-    TenKH: 1, TenNV: 1, KhachHang: 1, NhanVien: 1, ThamChieuThieu: 1
+    TenKH: 1, TenNV: 1, KhachHang: 1, NhanVien: 1, ThamChieuThieu: 1,
+    NguonDon: 1, TrangThaiDon: 1, DiaChiGiao: 1, TrangThaiThanhToan: 1, MaGiaoDichNganHang: 1, ThanhToanGiaLap: 1, DiemDuocCong: 1, TrangThaiTichDiem: 1
   },
   PhieuNhap: { _id: 0, MaPN: 1, MaNCC: 1, MaNV: 1, NgayNhap: 1, TongTien: 1, TenNCC: 1, TenNV: 1, NhaCungCap: 1, NhanVien: 1, ThamChieuThieu: 1 },
   SanPham: {
     _id: 0, MaSP: 1, TenSP: 1, MaDM: 1, MaNCC: 1, DonGiaNhap: 1, DonGiaBan: 1,
-    SoLuongTon: 1, DonViTinh: 1, HanSuDung: 1, TrangThai: 1, NgayCapNhat: 1,
+    SoLuongTon: 1, DonViTinh: 1, HanSuDung: 1, TrangThai: 1, NgayCapNhat: 1, MoTa: 1,
     TenDM: 1, TenNCC: 1, NhaCungCap: 1, ThamChieuThieu: 1, HinhAnh: 1
   }
 });

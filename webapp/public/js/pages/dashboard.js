@@ -79,7 +79,22 @@ export function renderDashboard(container, { signal, params }) {
   async function renderTop(value) {
     if (!value.length) { top.body.replaceChildren(empty('Chưa có sản phẩm bán trong kỳ chọn.')); return; }
     await attachChart('topProducts', top.body, 'bar', value.map(row => row.maSP), value.map(row => row.soLuongBan), table([
-      { label: 'Sản phẩm', render: row => el('div', { className: 'table-product' }, [el('strong', { text: row.tenSP }), el('small', { text: row.maSP })]) }, { label: 'Đã bán', numeric: true, render: row => number(row.soLuongBan) }
+      {
+        label: 'Sản phẩm',
+        render: row => el('div', { className: 'product-cell' }, [
+          el('img', {
+            src: `/images/products/${row.maSP}.jpg`,
+            alt: row.tenSP,
+            className: 'admin-product-thumb',
+            onError: (e) => { e.target.src = '/images/products/SP001.jpg'; }
+          }),
+          el('div', { className: 'product-cell-meta' }, [
+            el('a', { href: `#/san-pham/${encodeURIComponent(row.maSP)}`, text: row.tenSP, style: 'font-weight:600;color:var(--ink);' }),
+            el('small', { text: row.maSP })
+          ])
+        ])
+      },
+      { label: 'Đã bán', numeric: true, render: row => number(row.soLuongBan) }
     ], value, 'Top 5 sản phẩm bán chạy'), { horizontal: true });
   }
   async function renderPayments(value) {

@@ -38,10 +38,13 @@ export function createApp({ config, db, store, adminAuth = createAdminAuth({ con
       next();
     });
   }
-  // Trước router: Express tự xử lý HEAD như GET nếu không có chốt này.
-  app.use('/api', (req, res, next) => {
+  // Mount /api with JSON parser, method allowance, authentication and routes
+  app.use('/api', express.json({ limit: '1mb' }), (req, res, next) => {
     res.set('Cache-Control', 'no-store');
-    if (req.method !== 'GET') return res.set('Allow', 'GET').status(405).json({ error: { code: 'METHOD_NOT_ALLOWED', message: 'API chỉ hỗ trợ phương thức GET.' } });
+    const allowed = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+    if (!allowed.includes(req.method)) {
+      return res.set('Allow', allowed.join(', ')).status(405).json({ error: { code: 'METHOD_NOT_ALLOWED', message: 'API chỉ hỗ trợ các phương thức GET, POST, PUT, PATCH, DELETE.' } });
+    }
     next();
   }, adminAuth.authenticate, createApi(db, adminAuth));
   app.use('/admin-auth', adminAuth.router);

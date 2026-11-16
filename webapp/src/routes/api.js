@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { schemas, validate, codeValue } from '../middleware/validate.js';
 import { listCatalog, paymentOptions } from '../services/catalog.service.js';
 import { dashboard } from '../services/dashboard.service.js';
-import { listProducts, productDetail } from '../services/products.service.js';
+import { listProducts, productDetail, createProduct, updateProduct, deleteProduct } from '../services/products.service.js';
 import { listInventory } from '../services/inventory.service.js';
-import { listInvoices, invoiceDetail } from '../services/invoices.service.js';
+import { listInvoices, invoiceDetail, updateOrderStatus } from '../services/invoices.service.js';
 import { listPurchases, purchaseDetail } from '../services/purchases.service.js';
 import { listCustomers, customerDetail } from '../services/customers.service.js';
 import { listEmployees, listPromotions, salesOverview, revenueReport, productReport, customerReport } from '../services/analytics.service.js';
@@ -54,5 +54,63 @@ export function createApi(db, adminAuth) {
       res.json(result);
     });
   }
+
+  // Update order status (Fulfillment)
+  router.patch('/hoa-don/:maHD/trang-thai', adminAuth.authorize('hoa-don'), async (req, res) => {
+    try {
+      const maHD = codeValue(req.params.maHD, 'maHD');
+      const { trangThai } = req.body || {};
+      if (!trangThai) {
+        return res.status(400).json({ error: { code: 'INVALID_INPUT', message: 'Trạng thái đơn không được để trống.' } });
+      }
+      const result = await updateOrderStatus(db, maHD, trangThai);
+      if (!result.ok) {
+        return res.status(404).json({ error: { code: 'NOT_FOUND', message: result.message } });
+      }
+      res.json({ data: result.data, message: 'Cập nhật trạng thái đơn hàng thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'ORDER_UPDATE_ERROR', message: err.message } });
+    }
+  });
+
+  // Product CRUD
+  router.post('/san-pham', adminAuth.authorize('san-pham'), async (req, res) => {
+    try {
+      if (!['Quản trị', 'Kho'].includes(res.locals.admin?.role)) {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị hoặc Kho mới có quyền thêm sản phẩm.' } });
+      }
+      const created = await createProduct(db, req.body);
+      res.status(201).json({ data: created.data, message: 'Thêm sản phẩm mới thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'CREATE_PRODUCT_ERROR', message: err.message } });
+    }
+  });
+
+  router.put('/san-pham/:maSP', adminAuth.authorize('san-pham'), async (req, res) => {
+    try {
+      if (!['Quản trị', 'Kho'].includes(res.locals.admin?.role)) {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị hoặc Kho mới có quyền cập nhật sản phẩm.' } });
+      }
+      const maSP = codeValue(req.params.maSP, 'maSP');
+      const updated = await updateProduct(db, maSP, req.body);
+      res.json({ data: updated.data, message: 'Cập nhật sản phẩm thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'UPDATE_PRODUCT_ERROR', message: err.message } });
+    }
+  });
+
+  router.delete('/san-pham/:maSP', adminAuth.authorize('san-pham'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền xóa sản phẩm.' } });
+      }
+      const maSP = codeValue(req.params.maSP, 'maSP');
+      const result = await deleteProduct(db, maSP);
+      res.json({ data: result, message: result.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'DELETE_PRODUCT_ERROR', message: err.message } });
+    }
+  });
+
   return router;
 }

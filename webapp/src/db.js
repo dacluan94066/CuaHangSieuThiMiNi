@@ -42,6 +42,10 @@ export function createDatabase(config) {
       const collection = (await connect()).collection(name);
       return Object.freeze({
         find: (filter, options = {}) => collection.find(filter, { maxTimeMS: 5000, ...options }),
+        findOne: (filter, options = {}) => collection.findOne(filter, { maxTimeMS: 5000, ...options }),
+        insertOne: (doc, options = {}) => collection.insertOne(doc, options),
+        updateOne: (filter, update, options = {}) => collection.updateOne(filter, update, options),
+        deleteOne: (filter, options = {}) => collection.deleteOne(filter, options),
         aggregate(pipeline, options = {}) {
           checkPipeline(pipeline);
           return collection.aggregate(pipeline, { maxTimeMS: 5000, ...options });

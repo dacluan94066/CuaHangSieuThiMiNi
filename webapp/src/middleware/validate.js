@@ -50,7 +50,14 @@ export const schemas = Object.freeze({
     sort: choice(['ma-tang', 'gia-tang', 'gia-giam', 'ton-tang', 'ton-giam'], 'ma-tang')
   },
   inventory: { loai: choice(['tat-ca', 'het-hang', 'ton-thap', 'het-han', 'sap-het-han'], 'tat-ca') },
-  invoices: { maKH: optionalCode, maNV: optionalCode, thanhToan: payment, thucThuTren: price },
+  invoices: {
+    maKH: optionalCode,
+    maNV: optionalCode,
+    thanhToan: payment,
+    thucThuTren: price,
+    nguonDon: choice(['ONLINE', 'POS']),
+    trangThaiDon: choice(['Đã xác nhận', 'Đang giao hàng', 'Hoàn tất', 'Đã hủy'])
+  },
   purchases: { maNCC: optionalCode, maNV: optionalCode },
   promotions: { trangThai: choice(['sap-dien-ra', 'dang-ap-dung', 'da-ket-thuc']) },
   revenueReport: { nhom: choice(['ngay', 'thang'], 'thang') },
