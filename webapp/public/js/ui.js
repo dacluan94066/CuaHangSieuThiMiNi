@@ -123,7 +123,11 @@ export function renderReadList(container, { signal, params }, spec) {
     fields.push(el('div', { className: 'field' }, [el('label', { htmlFor: input.id, text: field.label }), input, ...(field.help ? [el('small', { className: 'field-hint', text: field.help })] : [])]));
   }
   const form = el('form', { className: 'filters transaction-filters' }, [...fields, el('div', { className: 'filter-actions' }, [el('button', { type: 'submit', className: 'button primary', text: 'Áp dụng' }), el('button', { type: 'button', className: 'button', text: 'Đặt lại', onClick: () => { clearTimeout(timer); query = {}; for (const input of Object.values(inputs)) input.value = ''; formError.hidden = true; updateQueryHash(spec.path, query); load(); } })]), formError]);
-  container.replaceChildren(el('div', { className: 'page-heading' }, [el('div', {}, [el('span', { className: 'welcome-label', text: spec.eyebrow }), el('h1', { text: spec.title }), el('p', { text: spec.description })]), el('button', { type: 'button', className: 'button', 'aria-label': `Làm mới ${spec.title.toLowerCase()}`, onClick: load }, [icon('refresh'), 'Làm mới'])]), form, lookupErrors, el('section', { className: 'card list-card' }, [body]), note);
+  const refreshBtn = el('button', { type: 'button', className: 'button', 'aria-label': `Làm mới ${spec.title.toLowerCase()}`, onClick: load }, [icon('refresh'), 'Làm mới']);
+  const actionsWrap = spec.headerActions
+    ? el('div', { style: 'display:flex;gap:10px;align-items:center;' }, [...(typeof spec.headerActions === 'function' ? spec.headerActions(load) : spec.headerActions), refreshBtn])
+    : refreshBtn;
+  container.replaceChildren(el('div', { className: 'page-heading' }, [el('div', {}, [el('span', { className: 'welcome-label', text: spec.eyebrow }), el('h1', { text: spec.title }), el('p', { text: spec.description })]), actionsWrap]), form, lookupErrors, el('section', { className: 'card list-card' }, [body]), note);
   function change(patch, replace = false) { query = { ...query, ...patch }; updateQueryHash(spec.path, query, replace); load(); }
   form.addEventListener('submit', event => {
     event.preventDefault(); clearTimeout(timer); formError.hidden = true;

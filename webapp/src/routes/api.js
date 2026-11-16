@@ -5,6 +5,7 @@ import { dashboard } from '../services/dashboard.service.js';
 import { listProducts, productDetail, createProduct, updateProduct, deleteProduct } from '../services/products.service.js';
 import { listInventory } from '../services/inventory.service.js';
 import { listInvoices, invoiceDetail, updateOrderStatus } from '../services/invoices.service.js';
+import { createPromotion, updatePromotion, deletePromotion } from '../services/promotions.service.js';
 import { listPurchases, purchaseDetail } from '../services/purchases.service.js';
 import { listCustomers, customerDetail } from '../services/customers.service.js';
 import { listEmployees, listPromotions, salesOverview, revenueReport, productReport, customerReport } from '../services/analytics.service.js';
@@ -109,6 +110,45 @@ export function createApi(db, adminAuth) {
       res.json({ data: result, message: result.message });
     } catch (err) {
       res.status(400).json({ error: { code: 'DELETE_PRODUCT_ERROR', message: err.message } });
+    }
+  });
+
+  // Promotion CRUD (Quản trị only)
+  router.post('/khuyen-mai', adminAuth.authorize('khuyen-mai'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền tạo mã khuyến mãi.' } });
+      }
+      const created = await createPromotion(db, req.body);
+      res.status(201).json({ data: created, message: 'Tạo mã khuyến mãi mới thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'CREATE_PROMOTION_ERROR', message: err.message } });
+    }
+  });
+
+  router.put('/khuyen-mai/:maKM', adminAuth.authorize('khuyen-mai'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền chỉnh sửa mã khuyến mãi.' } });
+      }
+      const maKM = codeValue(req.params.maKM, 'maKM');
+      const updated = await updatePromotion(db, maKM, req.body);
+      res.json({ data: updated, message: 'Cập nhật mã khuyến mãi thành công!' });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'UPDATE_PROMOTION_ERROR', message: err.message } });
+    }
+  });
+
+  router.delete('/khuyen-mai/:maKM', adminAuth.authorize('khuyen-mai'), async (req, res) => {
+    try {
+      if (res.locals.admin?.role !== 'Quản trị') {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Chỉ tài khoản Quản trị mới có quyền xóa mã khuyến mãi.' } });
+      }
+      const maKM = codeValue(req.params.maKM, 'maKM');
+      const result = await deletePromotion(db, maKM);
+      res.json({ data: result, message: result.message });
+    } catch (err) {
+      res.status(400).json({ error: { code: 'DELETE_PROMOTION_ERROR', message: err.message } });
     }
   });
 
